@@ -13,7 +13,7 @@ class _FirstState extends State<First> {
           child: ElevatedButton(onPressed: () {
             Navigator.pushNamed(context, '/second');
           },
-              child: Text("subjects Page")),
+              child: Text("Next Subjects Page")),
         ),
       );
     }

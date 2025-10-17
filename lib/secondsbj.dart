@@ -10,7 +10,7 @@ class Secondsbj extends StatelessWidget {
         body: Center(
           child: ElevatedButton(onPressed: (){
             Navigator.pushNamed(context, '/third');
-          }, child:Text("Quiz Page") ),
+          }, child:Text("Next Quiz Page") ),
         ),
       ),
     );
