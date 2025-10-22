@@ -8,8 +8,10 @@ import 'package:okquiz/threequiz.dart';
 void main () async{
 String url = "https://sundarampal.github.io/myjsonfiles/newspaper.json";
 final response = await http.get (Uri.parse(url));
+News.showNewspaper(response.body);
+print("hh");
 print(response.statusCode);
-print(response.body);
+// print(response.body);
   runApp(MaterialApp(
     initialRoute: '/',
     routes: {
