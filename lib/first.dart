@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 class First extends StatefulWidget {
-  const First({super.key});
-
+    First({super.key});
+var widgets=[Text("One"), Text("Two"), Text("three")];
   @override
   State<First> createState() => _FirstState();
 }
@@ -9,11 +9,10 @@ class _FirstState extends State<First> {
     Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(title: Text("Startup Screen"), centerTitle: true,),
-        body: Center(
-          child: ElevatedButton(onPressed: () {
-            Navigator.pushNamed(context, '/second');
-          },
-              child: Text("Next Subjects Page")),
+        body: Column(
+          children: widget.widgets
+
+
         ),
       );
     }
