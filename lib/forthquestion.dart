@@ -10,7 +10,7 @@ class Forthquestion extends StatelessWidget {
         child: ElevatedButton(onPressed: () {
           Navigator.pushNamed(context, '/fifth');
         },
-            child: Text("Next Result Page")),
+            child: Text("Next Page")),
       ),
     );
   }

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-class Threequiz extends StatelessWidget {
-  const Threequiz({super.key});
+class second extends StatelessWidget {
+  const second({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Quiz"), centerTitle: true,),
+      appBar: AppBar(title: Text("Subject"), centerTitle: true,),
       body: Center(
         child: ElevatedButton(onPressed: () {
-          Navigator.pushNamed(context, '/forth');
+          Navigator.pushNamed(context, '/third');
         },
             child: Text("Next Page")),
       ),
