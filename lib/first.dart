@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:okquiz/subject.dart';
 import 'package:okquiz/utilitiesdart.dart';
-
 class First extends StatefulWidget {
   const First({super.key});
   @override
@@ -50,18 +49,23 @@ class _FirstState extends State<First> {
     final newsWidgets = Utilities.newsWidgets(news, context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Start News'),centerTitle: true,),
+      appBar: AppBar(title: const Text('Quiz Demo')),
+      backgroundColor: const Color(0xFFF2E9FE),
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
           children: [
-            const SizedBox(height: 8),
             const Text(
-              'Only News',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              'Welcome to Quiz App',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.deepPurple,
+              ),
             ),
             const SizedBox(height: 8),
-            if (notice.isNotEmpty) Text(notice),
+            if (notice.isNotEmpty)
+              Text(notice, style: const TextStyle(color: Colors.deepPurple)),
             Expanded(
               child: ListView(
                 children: [
@@ -74,7 +78,8 @@ class _FirstState extends State<First> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => Subject(subjects: subjects, subjecs: null,),
+                          builder: (_) =>
+                              Subject(subjects: subjects, subjecs: null,),
                         ),
                       );
                     },

@@ -14,10 +14,10 @@ class Quiz extends StatefulWidget {
   });
 
   @override
-  State<Quiz> createState() => _QuizState();
+  State<Quiz> createState() => _QuizzesScreenState();
 }
 
-class _QuizState extends State<Quiz> {
+class _QuizzesScreenState extends State<Quiz> {
   List<dynamic> quizzes = [];
   String notice = 'Loading quizzes...';
 
@@ -56,15 +56,18 @@ class _QuizState extends State<Quiz> {
 
   @override
   Widget build(BuildContext context) {
-    final quizCards =
-    Utilities.quizWidgets(quizzes, (id, title, url) => _startQuiz(context, id, title, url));
+    final quizCards = Utilities.quizWidgets(
+        quizzes, (id, title, url) => _startQuiz(context, id, title, url));
 
     return Scaffold(
-      appBar: AppBar(title: Text('Quizzes • ${widget.subjectName}'),centerTitle: true,),
+      appBar: AppBar(title: Text('Quizzes • ${widget.subjectName}')),
+      backgroundColor: const Color(0xFFF2E9FE),
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: notice.isNotEmpty
-            ? Center(child: Text(notice))
+            ? Center(
+            child: Text(notice,
+                style: const TextStyle(color: Colors.deepPurple)))
             : ListView(children: quizCards),
       ),
     );

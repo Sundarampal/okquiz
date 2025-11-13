@@ -3,7 +3,6 @@ import 'package:okquiz/questionset.dart';
 import 'package:okquiz/utilitiesdart.dart';
 
 import 'fifthresult.dart';
-
 class Play extends StatefulWidget {
   final String quizId;
   final String quizTitle;
@@ -118,15 +117,10 @@ class _PlayState extends State<Play> {
     final qs = currentQuestionSet;
 
     if (qs == null) {
-      if (notice.isNotEmpty) {
-        return Scaffold(
-          appBar: AppBar(title: Text(widget.quizTitle)),
-          body: Center(child: Text(notice)),
-        );
-      }
       return Scaffold(
         appBar: AppBar(title: Text(widget.quizTitle)),
-        body: const Center(child: CircularProgressIndicator()),
+        backgroundColor: const Color(0xFFF2E9FE),
+        body: Center(child: Text(notice)),
       );
     }
 
@@ -135,6 +129,7 @@ class _PlayState extends State<Play> {
 
     return Scaffold(
       appBar: AppBar(title: Text(widget.quizTitle)),
+      backgroundColor: const Color(0xFFF2E9FE),
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
@@ -142,18 +137,17 @@ class _PlayState extends State<Play> {
           children: [
             Text(
               qs.title,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.deepPurple),
             ),
             const SizedBox(height: 8),
-            if (notice.isNotEmpty) Text(notice),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Question ${qIndex + 1} / ${qs.questions.length}'),
-              ],
+            Text(
+              'Question ${qIndex + 1} / ${qs.questions.length}',
+              style: const TextStyle(color: Colors.deepPurple),
             ),
             const Divider(),
-            const SizedBox(height: 8),
             Text(q.text, style: const TextStyle(fontSize: 18)),
             const SizedBox(height: 12),
             ElevatedButton(
@@ -166,41 +160,29 @@ class _PlayState extends State<Play> {
               child: const Text('False'),
             ),
             const SizedBox(height: 12),
-            Text('Score: $score'),
+            Text('Score: $score', style: const TextStyle(color: Colors.deepPurple)),
             const SizedBox(height: 8),
             Row(
               children: [
                 Expanded(
                   child: ElevatedButton(
                     onPressed: qIndex > 0 ? () => setState(() => qIndex--) : null,
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 14.0),
-                      child: Text('Previous'),
-                    ),
+                    child: const Text('Previous'),
                   ),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: _nextQuestion,
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 14.0),
-                      child: Text('Next'),
-                    ),
+                    child: const Text('Next'),
                   ),
                 ),
               ],
             ),
             const Spacer(),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: _gotoResult,
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 14.0),
-                  child: Text('Finish Now'),
-                ),
-              ),
+            ElevatedButton(
+              onPressed: _gotoResult,
+              child: const Text('Finish Now'),
             ),
           ],
         ),

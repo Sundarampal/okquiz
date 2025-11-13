@@ -3,11 +3,7 @@ import 'package:okquiz/threequiz.dart';
 import 'package:okquiz/utilitiesdart.dart';
 class Subject extends StatelessWidget {
   final List<dynamic> subjects;
-
-  const Subject({
-    super.key,
-    required this.subjects, required subjecs,
-  });
+  const Subject({super.key, required this.subjects, required subjecs});
 
   void _openQuizzesFor(
       BuildContext context, String id, String name, String quizzesUrl) {
@@ -30,7 +26,8 @@ class Subject extends StatelessWidget {
           (id, name, quizzesUrl) => _openQuizzesFor(context, id, name, quizzesUrl),
     );
     return Scaffold(
-      appBar: AppBar(title: const Text('Subjects'),centerTitle: true,),
+      appBar: AppBar(title: const Text('Subjects')),
+      backgroundColor: const Color(0xFFF2E9FE),
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: ListView(children: subjectButtons),

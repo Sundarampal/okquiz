@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:okquiz/forthquestion.dart';
 import 'package:okquiz/play.dart';
 class Result extends StatelessWidget {
   final int score;
@@ -20,49 +19,38 @@ class Result extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Result'),centerTitle: true,),
+      appBar: AppBar(title: const Text('Result')),
+      backgroundColor: const Color(0xFFF2E9FE),
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
           children: [
             Text(
               'Finished! Score: $score / $total',
-              style: const TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18, color: Colors.deepPurple),
             ),
             const SizedBox(height: 12),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.popUntil(context, (route) => route.isFirst);
-                },
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 14.0),
-                  child: Text('Back to Home'),
-                ),
-              ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.popUntil(context, (route) => route.isFirst);
+              },
+              child: const Text('Back to Home'),
             ),
             const SizedBox(height: 8),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => Play(
-                        quizId: quizId,
-                        quizTitle: quizTitle,
-                        questionsUrl: questionsUrl,
-                      ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => Play(
+                      quizId: quizId,
+                      quizTitle: quizTitle,
+                      questionsUrl: questionsUrl,
                     ),
-                  );
-                },
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 14.0),
-                  child: Text('Retry Quiz'),
-                ),
-              ),
+                  ),
+                );
+              },
+              child: const Text('Retry Quiz'),
             ),
           ],
         ),
