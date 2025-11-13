@@ -20,7 +20,6 @@ class _FirstState extends State<First> {
   }
 
   Future<void> _loadNewsThenSubjects() async {
-    // Step 1: News
     final nRemote = await Utilities.downloadJson(
       'https://sundarampal.github.io/myjsonfiles/newspaper.json',
     );
@@ -31,7 +30,6 @@ class _FirstState extends State<First> {
       notice = news.isEmpty ? 'Failed to load news.' : 'Loading subjects...';
     });
 
-    // Step 2: Subjects (only after news finishes)
     final sRemote = await Utilities.downloadJson(
       'https://sundarampal.github.io/myjsonfiles/subject1_2.json',
     );
@@ -42,7 +40,7 @@ class _FirstState extends State<First> {
       if (subjects.isEmpty) {
         notice = 'Failed to load subjects.';
       } else {
-        notice = ''; // ready
+        notice = '';
       }
     });
   }
@@ -52,14 +50,14 @@ class _FirstState extends State<First> {
     final newsWidgets = Utilities.newsWidgets(news, context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Quiz Demo')),
+      appBar: AppBar(title: const Text('Start News'),centerTitle: true,),
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
           children: [
             const SizedBox(height: 8),
             const Text(
-              'Welcome to Quiz App',
+              'Only News',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),

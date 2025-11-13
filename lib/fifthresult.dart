@@ -20,7 +20,7 @@ class Result extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Result')),
+      appBar: AppBar(title: const Text('Result'),centerTitle: true,),
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(

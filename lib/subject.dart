@@ -30,7 +30,7 @@ class Subject extends StatelessWidget {
           (id, name, quizzesUrl) => _openQuizzesFor(context, id, name, quizzesUrl),
     );
     return Scaffold(
-      appBar: AppBar(title: const Text('Subjects')),
+      appBar: AppBar(title: const Text('Subjects'),centerTitle: true,),
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: ListView(children: subjectButtons),

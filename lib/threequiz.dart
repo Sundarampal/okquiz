@@ -60,7 +60,7 @@ class _QuizState extends State<Quiz> {
     Utilities.quizWidgets(quizzes, (id, title, url) => _startQuiz(context, id, title, url));
 
     return Scaffold(
-      appBar: AppBar(title: Text('Quizzes • ${widget.subjectName}')),
+      appBar: AppBar(title: Text('Quizzes • ${widget.subjectName}'),centerTitle: true,),
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: notice.isNotEmpty
