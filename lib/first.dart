@@ -60,12 +60,12 @@ class _FirstState extends State<First> {
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Colors.deepPurple,
+                color: Colors.green,
               ),
             ),
             const SizedBox(height: 8),
             if (notice.isNotEmpty)
-              Text(notice, style: const TextStyle(color: Colors.deepPurple)),
+              Text(notice, style: const TextStyle(color: Colors.green)),
             Expanded(
               child: ListView(
                 children: [

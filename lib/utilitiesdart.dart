@@ -18,23 +18,23 @@ final summary = n['summary'] ?? '';
 final details = n['details'] ?? '';
 return Card(
 color: Colors.white,
-shadowColor: Colors.deepPurple.shade100,
+shadowColor: Colors.green.shade100,
 child: ListTile(
-title: Text(title, style: const TextStyle(color: Colors.deepPurple)),
+title: Text(title, style: const TextStyle(color: Colors.green)),
 subtitle: Text(summary),
 trailing: TextButton(
-child: const Text('Details', style: TextStyle(color: Colors.deepPurple)),
+child: const Text('Details', style: TextStyle(color: Colors.green)),
 onPressed: () {
 showDialog(
 context: context,
 builder: (_) => AlertDialog(
 backgroundColor: const Color(0xFFF3E8FF),
-title: Text(title, style: const TextStyle(color: Colors.deepPurple)),
+title: Text(title, style: const TextStyle(color: Colors.green)),
 content: Text(details),
 actions: [
 TextButton(
 onPressed: () => Navigator.pop(context),
-child: const Text('Close', style: TextStyle(color: Colors.deepPurple)),
+child: const Text('Close', style: TextStyle(color: Colors.green)),
 ),
 ],
 ),
@@ -58,7 +58,7 @@ return Padding(
 padding: const EdgeInsets.symmetric(vertical: 6),
 child: ElevatedButton(
 style: ElevatedButton.styleFrom(
-backgroundColor: Colors.deepPurple,
+backgroundColor: Colors.green,
 foregroundColor: Colors.white,
 padding: const EdgeInsets.symmetric(vertical: 14),
 ),
@@ -80,13 +80,13 @@ final desc = q['description'] ?? '';
 final questionsUrl = q['questions_url'] ?? q['questionsUrl'] ?? '';
 return Card(
 color: Colors.white,
-shadowColor: Colors.deepPurple.shade100,
+shadowColor: Colors.green.shade100,
 child: ListTile(
-title: Text(title, style: const TextStyle(color: Colors.deepPurple)),
+title: Text(title, style: const TextStyle(color: Colors.green)),
 subtitle: Text(desc),
 trailing: ElevatedButton(
 style: ElevatedButton.styleFrom(
-backgroundColor: Colors.deepPurple,
+backgroundColor: Colors.green,
 foregroundColor: Colors.white,
 ),
 onPressed: questionsUrl.isEmpty

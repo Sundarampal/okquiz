@@ -19,25 +19,44 @@ class Result extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Result')),
+      appBar: AppBar(title: const Text('Result'),centerTitle: true,),
       backgroundColor: const Color(0xFFF2E9FE),
-      body: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          children: [
-            Text(
-              'Finished! Score: $score / $total',
-              style: const TextStyle(fontSize: 18, color: Colors.deepPurple),
-            ),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Finished! Score: $score / $total',
+                  style: const TextStyle(fontSize: 20, color: Colors.black),
+                ),
             const SizedBox(height: 12),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.orange,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 14),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
               onPressed: () {
                 Navigator.popUntil(context, (route) => route.isFirst);
               },
+
               child: const Text('Back to Home'),
             ),
             const SizedBox(height: 8),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,   // Button color
+                foregroundColor: Colors.white,    // Text color
+                padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 14),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
@@ -55,6 +74,6 @@ class Result extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ));
   }
 }

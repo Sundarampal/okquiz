@@ -140,27 +140,35 @@ class _PlayState extends State<Play> {
               style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: Colors.deepPurple),
+                  color: Colors.green),
             ),
             const SizedBox(height: 8),
             Text(
               'Question ${qIndex + 1} / ${qs.questions.length}',
-              style: const TextStyle(color: Colors.deepPurple),
+              style: const TextStyle(color: Colors.green),
             ),
             const Divider(),
             Text(q.text, style: const TextStyle(fontSize: 18)),
             const SizedBox(height: 12),
             ElevatedButton(
               onPressed: already ? null : () => _answerCurrent(true),
-              child: const Text('True'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green,
+                foregroundColor: Colors.black,
+              ), child:  const Text('True'),
+
+
             ),
             const SizedBox(height: 8),
             ElevatedButton(
-              onPressed: already ? null : () => _answerCurrent(false),
-              child: const Text('False'),
+              onPressed: already ? null : () => _answerCurrent(true),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.black,
+              ), child:  const Text('False'),
             ),
             const SizedBox(height: 12),
-            Text('Score: $score', style: const TextStyle(color: Colors.deepPurple)),
+            Text('Score: $score', style: const TextStyle(color: Colors.green)),
             const SizedBox(height: 8),
             Row(
               children: [

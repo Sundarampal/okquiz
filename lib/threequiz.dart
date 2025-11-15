@@ -67,7 +67,7 @@ class _QuizzesScreenState extends State<Quiz> {
         child: notice.isNotEmpty
             ? Center(
             child: Text(notice,
-                style: const TextStyle(color: Colors.deepPurple)))
+                style: const TextStyle(color: Colors.green)))
             : ListView(children: quizCards),
       ),
     );
