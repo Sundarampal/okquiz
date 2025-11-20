@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:okquiz/play.dart';
+
 class Result extends StatelessWidget {
   final int score;
   final int total;
   final String quizId;
   final String quizTitle;
   final String questionsUrl;
+
+  final List<Map<String, dynamic>> userAnswers;
 
   const Result({
     super.key,
@@ -14,66 +16,69 @@ class Result extends StatelessWidget {
     required this.quizId,
     required this.quizTitle,
     required this.questionsUrl,
+    required this.userAnswers,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Result'),centerTitle: true,),
-      backgroundColor: const Color(0xFFF2E9FE),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Finished! Score: $score / $total',
-                  style: const TextStyle(fontSize: 20, color: Colors.black),
-                ),
-            const SizedBox(height: 12),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.orange,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 14),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              onPressed: () {
-                Navigator.popUntil(context, (route) => route.isFirst);
-              },
+      appBar: AppBar(title: Text("Result")),
+      body: Padding(
+        padding: const EdgeInsets.all(12),
+        child: ListView(
 
-              child: const Text('Back to Home'),
-            ),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,   // Button color
-                foregroundColor: Colors.white,    // Text color
-                padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 14),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
+          children: [
+
+            Center(
+              child: Text(
+                "Score: $score / $total",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => Play(
-                      quizId: quizId,
-                      quizTitle: quizTitle,
-                      questionsUrl: questionsUrl,
-                    ),
-                  ),
-                );
-              },
-              child: const Text('Retry Quiz'),
             ),
+
+            const SizedBox(height: 20),
+
+            ...userAnswers.asMap().entries.map((entry) {
+              int index = entry.key;
+              var q = entry.value;
+
+              return Card(
+                color: q["is_correct"] ? Colors.green[50] : Colors.red[50],
+                margin: EdgeInsets.only(bottom: 12),
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "${index + 1}. ${q['question']}",
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+
+                      SizedBox(height: 8),
+
+                      Text("Your Answer: ${q['selected_answer']}"),
+
+                      Text("Correct Answer: ${q['correct_answer']}"),
+
+                      SizedBox(height: 6),
+
+                      Text(
+                        q["is_correct"] ? "✔ Correct" : "✘ Wrong",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: q["is_correct"] ? Colors.green : Colors.red,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            }),
           ],
         ),
       ),
-    ));
+    );
   }
 }

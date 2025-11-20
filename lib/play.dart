@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:okquiz/questionset.dart';
 import 'package:okquiz/utilitiesdart.dart';
-
 import 'fifthresult.dart';
+
 class Play extends StatefulWidget {
   final String quizId;
   final String quizTitle;
@@ -26,6 +26,9 @@ class _PlayState extends State<Play> {
   Set<String> answered = {};
   String notice = 'Loading questions...';
 
+  /// ⭐ User Answers Save Here
+  List<Map<String, dynamic>> userAnswers = [];
+
   @override
   void initState() {
     super.initState();
@@ -37,6 +40,8 @@ class _PlayState extends State<Play> {
     qIndex = 0;
     score = 0;
     answered.clear();
+    userAnswers.clear();
+
     setState(() => notice = 'Loading questions...');
 
     final remote = questionsUrl.isNotEmpty
@@ -47,12 +52,11 @@ class _PlayState extends State<Play> {
 
     if (remote != null) {
       if (remote is List) {
-        final mapWrap = {
+        parsedSet = QuestionSet.fromJson({
           'id': quizId,
           'title': widget.quizTitle,
           'questions': remote,
-        };
-        parsedSet = QuestionSet.fromJson(Map<String, dynamic>.from(mapWrap));
+        });
       } else if (remote is Map) {
         parsedSet = QuestionSet.fromJson(Map<String, dynamic>.from(remote));
       }
@@ -74,21 +78,33 @@ class _PlayState extends State<Play> {
     });
   }
 
-  void _answerCurrent(bool selected) {
+  /// ⭐ Answer Function (Corrected)
+  void _answerCurrent(bool selectedValue) {
     final qs = currentQuestionSet;
     if (qs == null) return;
 
     final q = qs.questions[qIndex];
     if (answered.contains(q.id)) return;
 
-    final correct = q.answer == selected;
+    bool correct = q.answer == selectedValue;
     if (correct) score++;
+
     answered.add(q.id);
+
+    // ⭐ Store user answer for Result Page
+    userAnswers.add({
+      "question": q.text,
+      "correct_answer": q.answer == true ? "True" : "False",
+      "selected_answer": selectedValue ? "True" : "False",
+      "is_correct": correct,
+    });
+
     setState(() {});
   }
 
   void _nextQuestion() {
     if (currentQuestionSet == null) return;
+
     if (qIndex < currentQuestionSet!.questions.length - 1) {
       setState(() => qIndex++);
     } else {
@@ -96,8 +112,10 @@ class _PlayState extends State<Play> {
     }
   }
 
+  /// ⭐ Passing questions + user answers to Result Page
   void _gotoResult() {
     final total = currentQuestionSet?.questions.length ?? 0;
+
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -107,6 +125,7 @@ class _PlayState extends State<Play> {
           quizId: widget.quizId,
           quizTitle: widget.quizTitle,
           questionsUrl: widget.questionsUrl,
+          userAnswers: userAnswers,
         ),
       ),
     );
@@ -119,7 +138,6 @@ class _PlayState extends State<Play> {
     if (qs == null) {
       return Scaffold(
         appBar: AppBar(title: Text(widget.quizTitle)),
-        backgroundColor: const Color(0xFFF2E9FE),
         body: Center(child: Text(notice)),
       );
     }
@@ -129,68 +147,33 @@ class _PlayState extends State<Play> {
 
     return Scaffold(
       appBar: AppBar(title: Text(widget.quizTitle)),
-      backgroundColor: const Color(0xFFF2E9FE),
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              qs.title,
-              style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.green),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Question ${qIndex + 1} / ${qs.questions.length}',
-              style: const TextStyle(color: Colors.green),
-            ),
+            Text('Question ${qIndex + 1} / ${qs.questions.length}'),
             const Divider(),
-            Text(q.text, style: const TextStyle(fontSize: 18)),
-            const SizedBox(height: 12),
+            Text(q.text, style: const TextStyle(fontSize: 20)),
+            const SizedBox(height: 20),
+
             ElevatedButton(
               onPressed: already ? null : () => _answerCurrent(true),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-                foregroundColor: Colors.black,
-              ), child:  const Text('True'),
-
-
+                child: Center(child: const Text('True'),),
             ),
-            const SizedBox(height: 8),
+
+            const SizedBox(height: 10),
+
             ElevatedButton(
-              onPressed: already ? null : () => _answerCurrent(true),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-                foregroundColor: Colors.black,
-              ), child:  const Text('False'),
+              onPressed: already ? null : () => _answerCurrent(false),
+              child: Center(child: const Text('False')),
             ),
-            const SizedBox(height: 12),
-            Text('Score: $score', style: const TextStyle(color: Colors.green)),
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: qIndex > 0 ? () => setState(() => qIndex--) : null,
-                    child: const Text('Previous'),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: _nextQuestion,
-                    child: const Text('Next'),
-                  ),
-                ),
-              ],
-            ),
+
             const Spacer(),
+
             ElevatedButton(
-              onPressed: _gotoResult,
-              child: const Text('Finish Now'),
+              onPressed: _nextQuestion,
+              child: Center(child: const Text("Next")),
             ),
           ],
         ),
