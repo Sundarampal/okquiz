@@ -49,7 +49,7 @@ class _FirstState extends State<First> {
     final newsWidgets = Utilities.newsWidgets(news, context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Quiz Demo')),
+      appBar: AppBar(title: const Text('Quiz App')),
       backgroundColor: const Color(0xFFF2E9FE),
       body: Padding(
         padding: const EdgeInsets.all(12),

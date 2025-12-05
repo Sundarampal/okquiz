@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class Result extends StatelessWidget {
   final int score;
   final int total;
